@@ -45,7 +45,6 @@ const MODES = [
 ];
 
 export default function App() {
-  const [redirecting, setRedirecting] = useState(false);
   const [url, setUrl] = useState("");
   const [maskedUrl, setMaskedUrl] = useState("");
   const [copied, setCopied] = useState(false);
@@ -56,27 +55,14 @@ export default function App() {
     const searchParams = new URLSearchParams(window.location.search);
     const r = searchParams.get("r");
     if (r) {
-      setRedirecting(true);
       try {
         const decoded = atob(r);
-        window.location.href = decoded;
+        window.location.replace(decoded);
       } catch (e) {
-        console.error("Failed to decode URL", e);
-        setRedirecting(false);
+        // invalid param, stay on page
       }
     }
   }, []);
-
-  if (redirecting) {
-    return (
-      <div className="min-h-[100dvh] w-full bg-black flex items-center justify-center font-mono text-[#00c8d4]">
-        <div className="flex flex-col items-center gap-4 animate-pulse">
-          <Link2 className="w-12 h-12" />
-          <p className="tracking-[0.3em] text-lg font-bold">REDIRECTING...</p>
-        </div>
-      </div>
-    );
-  }
 
   const handleGenerate = (e: MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -94,8 +80,7 @@ export default function App() {
         finalUrl = 'https://' + finalUrl;
       }
       const encoded = btoa(finalUrl);
-      const baseUrlString = window.location.origin + import.meta.env.BASE_URL;
-      const fullUrlObj = new URL(baseUrlString);
+      const fullUrlObj = new URL("https://linkurl.pk/");
       fullUrlObj.searchParams.set("r", encoded);
       setMaskedUrl(fullUrlObj.toString());
       setCopied(false);
