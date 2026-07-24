@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Ghost Beam Link Hider"
+version = "1.0.0"
+id = "artifacts/link-hider"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18258
+
+[services.development]
+run = "pnpm --filter @workspace/link-hider run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/link-hider", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/link-hider/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18258"
+BASE_PATH = "/"
