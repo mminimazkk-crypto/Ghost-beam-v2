@@ -80,7 +80,7 @@ export default function App() {
         finalUrl = 'https://' + finalUrl;
       }
       const encoded = btoa(finalUrl);
-      const fullUrlObj = new URL("https://linkurl.pk/");
+      const fullUrlObj = new URL("https://linku.url/");
       fullUrlObj.searchParams.set("r", encoded);
       setMaskedUrl(fullUrlObj.toString());
       setCopied(false);
