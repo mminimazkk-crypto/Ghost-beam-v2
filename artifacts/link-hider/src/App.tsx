@@ -51,18 +51,6 @@ export default function App() {
   const [selectedMode, setSelectedMode] = useState("PRIVATE");
   const [ripples, setRipples] = useState<{ x: number; y: number; id: number }[]>([]);
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const r = searchParams.get("r");
-    if (r) {
-      try {
-        const decoded = atob(r);
-        window.location.replace(decoded);
-      } catch (e) {
-        // invalid param, stay on page
-      }
-    }
-  }, []);
 
   const handleGenerate = (e: MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
