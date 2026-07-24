@@ -1,5 +1,0 @@
-{
-  "buildCommand": "pnpm install && pnpm --filter @workspace/link-hider run build",
-  "outputDirectory": "artifacts/link-hider/dist/public",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
-}
